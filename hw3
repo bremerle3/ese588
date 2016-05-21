@@ -1,0 +1,19 @@
+N=256;
+x=zeros(1,N);
+A=0.95;
+
+for i=1:N
+    x(1,i)=A^(i-1);
+end
+figure;stem(x(1:20));title('Original Sequence');
+
+a = [1 -A];
+b = [1];
+figure; zplane(b,a);
+
+[h,w] = freqz(b,a,N,'whole');
+figure; stem(w-pi,abs(fftshift(h)));title('Frequency Domain');
+hn = ifft(h);
+figure;stem(hn(1:20));title('Inverse Transform');
+
+pause;close all;
